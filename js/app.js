@@ -50,6 +50,7 @@ const isInViewport = (elem) =>  {
 */
 
 // build the nav
+// Build menu 
 
 const createNav = () => {
 
@@ -58,6 +59,7 @@ const createNav = () => {
         const link = document.createElement('a');
               link.classList.add('menu__link');
               link.setAttribute('href', `#section${i+1}`);
+              link.setAttribute('id', `to-section-${i+1}`);
               link.textContent = `section ${i+1}`;
         listItem.appendChild(link);
         ul.appendChild(listItem);
@@ -86,59 +88,47 @@ document.addEventListener('scroll',  () => {
 addActiveClass(isInViewport);
 
 // Scroll to anchor ID using scrollTO event
-
-const findTarget = () =>{
-    sections.forEach(section => {
-        const id = section.id
-        scrollByClick(id);
-    })
-}
-
+// Scroll to section on link click
 
 
 const scrollByClick = (id) => {
-
-const links = document.querySelectorAll("a[href^='#section']");
+const links = document.querySelectorAll('a[href^="#"]');
 const sectionId = id;
 
 links.forEach(link => {
-    link.addEventListener('click', event => {
-     
-        scrollTo(document.querySelector(`${sectionId}`))
-        // console.log('target', target)
-        // const targets = document.querySelectorAll(`${sectionId}`);
-        // targets.forEach(target => {
-        //     target.scrollIntoView({behavior: "smooth"})
-        //  })
-       
-    })
-})
+    link.addEventListener('click', () => {
+        const targetSection = document.querySelector(`#${sectionId}`);
+        let top = targetSection.getBoundingClientRect().top + window.pageYOffset
+        let left = targetSection.getBoundingClientRect().left + window.pageXOffset
 
+        window.scrollTo({
+            top,
+            left,
+            behavior: 'smooth',
+          });
+    })
+});
 }
 
-function scrollTo(element) {
-      window.scroll({
-      behavior: 'smooth',
-      left: 0,
-      top: element.offsetTop
-    });
-  }
 
-scrollTo();
-
-//scrollByClick(id);
+const findTarget = sections.forEach(section => {
+    const id = section.getAttribute('id');
+    scrollByClick(id);
+})
 
 
+// Set sections as active
 /**
  * End Main Functions
  * Begin Events
  * 
 */
 
-// Build menu 
-
-// Scroll to section on link click
 
 
 
-// Set sections as active
+
+
+
+
+
