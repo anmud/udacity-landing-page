@@ -53,7 +53,7 @@ const createNav = () => {
   for (let i = 0; i < sections.length; i++) {
     const listItem = document.createElement('li');
     const link = document.createElement('a');
-    link.classList.add('menu__link', 'active-link');
+    link.classList.add('menu__link');
     link.setAttribute('href', `#section${i + 1}`);
     link.setAttribute('id', `to-section-${i + 1}`);
     link.textContent = `section ${i + 1}`;
@@ -109,12 +109,7 @@ const scrollByClick = () => {
 
 const onScroll = (e) => {
   e.preventDefault();
-    const removeActiveClass = function (elements) {
-        for (var i = 0; i < elements.length; ++i) {
-            elements[i].classList.remove('active-link');
-        }
-    }
-  
+
     const links = document.querySelectorAll('a[href^="#"]');
 
      //Get current scroll position
@@ -132,13 +127,8 @@ const onScroll = (e) => {
 
       (currentTargetElementTop <= currentPosition && currentTargetElementTop + currentTargetElementHeight > currentPosition) 
                     
-                           ?  (removeActiveClass(links),
-                              currentLink.classList.add('active-link'))
-
+                           ?   currentLink.classList.add('active-link')
                            :   currentLink.classList.remove('active-link')
-
-
-                         
     }  
 
 }
