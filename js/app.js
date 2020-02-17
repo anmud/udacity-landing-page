@@ -104,8 +104,7 @@ const scrollByClick = () => {
 };
 
 
-//Set sections as active
-
+//Set nav items as active
 
 const onScroll = (e) => {
   e.preventDefault();
