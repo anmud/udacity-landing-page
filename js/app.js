@@ -107,9 +107,8 @@ const scrollByClick = () => {
 //Set sections as active
 
 
-
-const onScroll = () => {
-    
+const onScroll = (e) => {
+  e.preventDefault();
     const removeActiveClass = function (elements) {
         for (var i = 0; i < elements.length; ++i) {
             elements[i].classList.remove('active-link');
@@ -119,31 +118,50 @@ const onScroll = () => {
     const links = document.querySelectorAll('a[href^="#"]');
 
      //Get current scroll position
-     let currentPosition = window.pageYOffset
+
+     let currentPosition = window.scrollY
 
     for (let i = 0; i < links.length; i++) {
-
-      console.log('links', links)
 
       let currentLink = links[i];
       
       // Get the current section by the id from the links's href.
-      const currentTargetElement = document.getElementById(links[i].getAttribute("href").substring(1));
-      const currentTargetElementTop = currentTargetElement.getBoundingClientRect().top + window.pageYOffset;
+      let currentTargetElement = document.getElementById(links[i].getAttribute("href").substring(1));
+      let currentTargetElementTop = currentTargetElement.offsetTop;
       const currentTargetElementHeight = currentTargetElement.offsetHeight;
 
-    return  (currentTargetElementTop <= currentPosition && currentTargetElementTop + currentTargetElementHeight > currentPosition) 
+      (currentTargetElementTop <= currentPosition && currentTargetElementTop + currentTargetElementHeight > currentPosition) 
                     
                            ?  (removeActiveClass(links),
                               currentLink.classList.add('active-link'))
-                           
+
                            :   currentLink.classList.remove('active-link')
+
+
+                         
     }  
 
 }
 
 window.onscroll = onScroll;
 
+
+// window.addEventListener('scroll', e => {
+//   e.preventDefault();
+
+//   let links = document.querySelectorAll('a[href^="#"]');
+//   let currentPosition = window.scrollY;
+
+//   links.forEach(link => {
+
+//     let currentTargetElement = document.querySelector(link.hash);
+      
+//     (currentTargetElement.offsetTop <= currentPosition && currentTargetElement.offsetTop + currentTargetElement.offsetHeight > currentPosition)
+//     ? link.classList.add('active-link')
+//     : link.classList.remove('active-link')
+
+//   })
+// })
 
 /**
  * End Main Functions
